@@ -7,7 +7,6 @@ import { HomeComponent } from './home/home.component';
 // 'users/new'; the router would just think that the string 'new' is a user ID.
 const routes: Routes = [
   {path: '', component: HomeComponent, title: 'Home'},
-  {path: 'users', component: UserListComponent, title: 'Users'},
 ];
 
 @NgModule({
