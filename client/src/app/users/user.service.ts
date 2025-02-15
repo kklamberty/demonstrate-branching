@@ -30,7 +30,7 @@ export class UserService {
   * in the `filters` map.
   *
   *
-  * @param filters a map that allows us to specify a target role, age,
+  * @param _filters a map that allows us to specify a target role, age,
   *  or company to filter by, or any combination of those
   * @returns an `Observable` of an array of `Users`. Wrapping the array
   *  in an `Observable` means that other bits of of code can `subscribe` to
@@ -38,11 +38,11 @@ export class UserService {
   *  from the server after a possibly substantial delay (because we're
   *  contacting a remote server over the Internet).
   */
-  getUsers(filters?: { }): Observable<User[]> {
+  getUsers(): Observable<User[]> {
     // `HttpParams` is essentially just a map used to hold key-value
     // pairs that are then encoded as "?key1=value1&key2=value2&…" in
     // the URL when we make the call to `.get()` below.
-    let httpParams: HttpParams = new HttpParams();
+    const httpParams: HttpParams = new HttpParams();
     // Send the HTTP GET request with the given URL and parameters.
     // That will return the desired `Observable<User[]>`.
     return this.httpClient.get<User[]>(this.userUrl, {

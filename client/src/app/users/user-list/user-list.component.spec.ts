@@ -1,10 +1,9 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserListComponent } from './user-list.component';
 import { UserService } from '../user.service';
 import { MockUserService } from 'src/testing/user.service.mock';
 import { User } from '../user';
-import { Observable } from 'rxjs';
 
 describe('User List', () => {
   let userList: UserListComponent;
