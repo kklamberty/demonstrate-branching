@@ -66,11 +66,7 @@ export class UserListComponent {
         // can return errors if, for example, the server is down or returns an error. This catches those errors, and
         // sets the `errMsg` signal, which allows error messages to be displayed.
         catchError((err) => {
-          if (err.error instanceof ErrorEvent) {
-            this.errMsg.set(
-              `Problem in the client – Error: ${err.error.message}`
-            );
-          } else {
+          if (!(err.error instanceof ErrorEvent)) {
             this.errMsg.set(
               `Problem contacting the server – Error Code: ${err.status}\nMessage: ${err.message}`
             );
@@ -84,7 +80,7 @@ export class UserListComponent {
           // A common side effect is printing to the console.
           // You don't want to leave code like this in the
           // production system, but it can be useful in debugging.
-          console.log('Users were filtered on the server')
+          // console.log('Users were filtered on the server')
         })
       )
     );
