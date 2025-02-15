@@ -5,10 +5,16 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, combineLatest, of, switchMap, tap } from 'rxjs';
 import { MatFormField, MatHint, MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-list',
-  imports: [],
+  imports: [
+    MatFormField,
+    MatHint,
+    MatInputModule,
+    FormsModule
+  ],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss'
 })

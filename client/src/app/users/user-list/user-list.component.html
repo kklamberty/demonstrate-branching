@@ -4,7 +4,7 @@
   <input matInput data-test="userAgeInput" type="number" placeholder="Filter by age"
     min="0" max="200" [(ngModel)]="userAge" >
   <mat-hint>Filtered on server</mat-hint>
-</mat-form-field><div data-test="user-list-title">Users</div>
+</mat-form-field>
 <div data-test="user-list-title">Users</div>
 <div class="flex-row">
   @if (serverFilteredUsers()) {
@@ -21,5 +21,15 @@
       }
     </div>
     </ol>
+  } @else {
+    <div class="flex-1" class="user-error">
+      <mat-error>
+        There was a problem loading the users. Possibly the server is down or perhaps there are network
+        issues.
+      </mat-error>
+      <mat-error>
+        Please wait a bit and try again or start the server.
+      </mat-error>
+    </div>
   }
 </div>
