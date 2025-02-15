@@ -1,1 +1,19 @@
 <p>user-list works!</p>
+<div data-test="user-list-title">Users</div>
+<div class="flex-row">
+  @if (users()) {
+    <ul>
+    <div class="user-cards-container flex-row gap-8 flex-wrap">
+      @for (user of users(); track user._id) {
+        <li data-test="user">{{ user.name }}
+          <ul>
+            <li>Works for:{{ user.company }} as a(n) {{ user.role }}</li>
+            <li>Age:{{ user.age }}</li>
+            <li>{{ user.email }}</li>
+          </ul>
+        </li>
+      }
+    </div>
+    </ul>
+  }
+</div>
