@@ -2,7 +2,8 @@ import { UserRole } from 'src/app/users/user';
 
 export class UserListPage {
   private readonly baseUrl = '/users';
-  private readonly pageTitle = '.user-list-title';
+  private readonly pageTitle = '[data-test=user-list-title]';
+  private readonly user = '[data-test=user]';
   private readonly userCardSelector = '.user-cards-container app-user-card';
   private readonly userListItemsSelector = '.user-nav-list .user-list-item';
   private readonly profileButtonSelector = '[data-test=viewProfileButton]';
@@ -22,6 +23,10 @@ export class UserListPage {
    */
   getUserTitle() {
     return cy.get(this.pageTitle);
+  }
+
+  getVisibleUsers() {
+    return cy.get(this.user);
   }
 
   /**

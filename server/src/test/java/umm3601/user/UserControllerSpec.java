@@ -36,7 +36,6 @@ import com.mongodb.client.MongoDatabase;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.HttpStatus;
-import io.javalin.json.JavalinJackson;
 
 /**
  * Tests the logic of the UserController
@@ -67,9 +66,6 @@ class UserControllerSpec {
   // for all the tests in this spec file.
   private static MongoClient mongoClient;
   private static MongoDatabase db;
-
-  // Used to translate between JSON and POJOs.
-  private static JavalinJackson javalinJackson = new JavalinJackson();
 
   @Mock
   private Context ctx;
