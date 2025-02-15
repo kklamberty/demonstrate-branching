@@ -1,10 +1,16 @@
 <p>user-list works!</p>
+<mat-form-field class="input-field">
+  <mat-label>Age</mat-label>
+  <input matInput data-test="userAgeInput" type="number" placeholder="Filter by age"
+    min="0" max="200" [(ngModel)]="userAge" >
+  <mat-hint>Filtered on server</mat-hint>
+</mat-form-field><div data-test="user-list-title">Users</div>
 <div data-test="user-list-title">Users</div>
 <div class="flex-row">
-  @if (users()) {
+  @if (serverFilteredUsers()) {
     <ol>
     <div class="user-cards-container flex-row gap-8 flex-wrap">
-      @for (user of users(); track user._id) {
+      @for (user of filteredUsers(); track user._id) {
         <li data-test="user">{{ user.name }}
           <ul>
             <li>Works for:{{ user.company }} as a(n) {{ user.role }}</li>
