@@ -2,7 +2,7 @@
 <div data-test="user-list-title">Users</div>
 <div class="flex-row">
   @if (users()) {
-    <ul>
+    <ol>
     <div class="user-cards-container flex-row gap-8 flex-wrap">
       @for (user of users(); track user._id) {
         <li data-test="user">{{ user.name }}
@@ -14,6 +14,6 @@
         </li>
       }
     </div>
-    </ul>
+    </ol>
   }
 </div>
