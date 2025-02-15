@@ -1,11 +1,11 @@
-import { Component, computed, signal, Signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { UserService } from '../user.service';
 import { User } from '../user';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { catchError, combineLatest, of, switchMap, tap } from 'rxjs';
 import { MatFormField, MatHint, MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-list',
@@ -19,16 +19,17 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './user-list.component.scss'
 })
 export class UserListComponent {
+  userAge = signal<number | undefined>(undefined);
 
-userAge = signal<number | undefined>(undefined);
-errMsg = signal<string | undefined>(undefined);
+  errMsg = signal<string | undefined>(undefined);
 
-/**
-  * This constructor injects instance of `UserService`
-  * into this component.
+ /**
+  * This constructor injects both an instance of `UserService` and
+  * an instance of `MatSnackBar` into this component.
   * `UserService` lets us interact with the server.
   *
   * @param userService the `UserService` used to get users from the server
+  * @param snackBar the `MatSnackBar` used to display feedback
   */
   constructor(private userService: UserService, private snackBar: MatSnackBar) {
     // Nothing here – everything is in the injection parameters.

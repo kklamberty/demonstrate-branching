@@ -70,8 +70,9 @@ export class UserService {
    * @param filters the map of key-value pairs used for the filtering
    * @returns an array of `Users` matching the given filters
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   filterUsers(users: User[], filters: { name?: string; company?: string }): User[] { // skipcq: JS-0105
-    let filteredUsers = users;
+    const filteredUsers = users;
     return filteredUsers;
   }
 }

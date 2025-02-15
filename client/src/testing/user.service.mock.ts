@@ -52,7 +52,7 @@ export class MockUserService extends UserService {
   // this warning for just his function.
   // _filters: { role?: UserRole; age?: number; company?: string }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getUsers(): Observable<User[]> {
+  getUsers(_filters: { age?: number }): Observable<User[]> {
     // Our goal here isn't to test (and thus rewrite) the service, so we'll
     // keep it simple and just return the test users regardless of what
     // filters are passed in.

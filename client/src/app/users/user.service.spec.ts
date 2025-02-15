@@ -110,4 +110,38 @@ describe('UserService', () => {
       });
     }));
   });
-})
+
+  describe('When getUsers() is called with parameters, it correctly forms the HTTP request (Javalin/Server filtering)', () => {
+    /*
+    * As in the test of `getUsers()` that takes in no filters in the params,
+    * we really don't care what `getUsers()` returns in the cases
+    * where the filtering is happening on the server. Since all the
+    * filtering is happening on the server, `getUsers()` is really
+    * just a "pass through" that returns whatever it receives, without
+    * any "post processing" or manipulation. So the tests in this
+    * `describe` block all confirm that the HTTP request is properly formed
+    * and sent out in the world, but don't _really_ care about
+    * what `getUsers()` returns as long as it's what the HTTP
+    * request returns.
+    *
+    * So in each of these tests, we'll keep it simple and have
+    * the (mocked) HTTP request return the entire list `testUsers`
+    * even though in "real life" we would expect the server to
+    * return return a filtered subset of the users. Furthermore, we
+    * won't actually check what got returned (there won't be an `expect`
+    * about the returned value).
+    */
+    it('correctly calls api/users with filter parameter \'age\'', () => {
+      const mockedMethod = spyOn(httpClient, 'get').and.returnValue(of(testUsers));
+
+      userService.getUsers({ age: 25 }).subscribe(() => {
+        expect(mockedMethod)
+          .withContext('one call')
+          .toHaveBeenCalledTimes(1);
+        expect(mockedMethod)
+          .withContext('talks to the correct endpoint')
+          .toHaveBeenCalledWith(userService.userUrl, { params: new HttpParams().set('age', '25') });
+      });
+    });
+  });
+});
