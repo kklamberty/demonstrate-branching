@@ -20,6 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class UserListComponent {
   userAge = signal<number | undefined>(undefined);
+  userCompany = signal<string | undefined>(undefined);
 
   errMsg = signal<string | undefined>(undefined);
 
@@ -95,6 +96,8 @@ export class UserListComponent {
   // will be updated by rerunning the function we're passing to `computed()`.
   filteredUsers = computed(() => {
     const serverFilteredUsers = this.serverFilteredUsers();
-    return this.userService.filterUsers(serverFilteredUsers, {});
+    return this.userService.filterUsers(serverFilteredUsers, {
+      company: this.userCompany(),
+    });
   });
 }

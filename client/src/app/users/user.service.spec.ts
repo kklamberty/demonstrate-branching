@@ -144,4 +144,25 @@ describe('UserService', () => {
       });
     });
   });
+
+  describe('Filtering on the client using `filterUsers()` (Angular/Client filtering)', () => {
+    /*
+     * Since `filterUsers` actually filters "locally" (in
+     * Angular instead of on the server), we do want to
+     * confirm that everything it returns has the desired
+     * properties. Since this doesn't make a call to the server,
+     * though, we don't have to use the mock HttpClient and
+     * all those complications.
+     */
+    it('filters by company', () => {
+      const userCompany = 'UMM';
+      const filteredUsers = userService.filterUsers(testUsers, { company: userCompany });
+      // There should be just one user that has UMM as their company.
+      expect(filteredUsers.length).toBe(1);
+      // Every returned user's company should contain 'UMM'.
+      filteredUsers.forEach(user => {
+        expect(user.company.indexOf(userCompany)).toBeGreaterThanOrEqual(0);
+      });
+    });
+  });
 });
