@@ -19,6 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './user-list.component.scss'
 })
 export class UserListComponent {
+  userName = signal<string | undefined>(undefined);
   userAge = signal<number | undefined>(undefined);
   userCompany = signal<string | undefined>(undefined);
 
@@ -97,6 +98,7 @@ export class UserListComponent {
   filteredUsers = computed(() => {
     const serverFilteredUsers = this.serverFilteredUsers();
     return this.userService.filterUsers(serverFilteredUsers, {
+      name: this.userName(),
       company: this.userCompany(),
     });
   });

@@ -7,6 +7,7 @@ export class UserListPage {
   private readonly username = '[data-test=userName]';
   private readonly companyName = '[data-test=userCompany]';
   private readonly ageFilter = '[data-test=userAgeFilter]';
+  private readonly nameFilter = '[data-test=userNameFilter]';
   private readonly companyFilter = '[data-test=userCompanyFilter]';
   private readonly userCardSelector = '.user-cards-container app-user-card';
   private readonly userListItemsSelector = '.user-nav-list .user-list-item';
@@ -64,6 +65,16 @@ export class UserListPage {
    */
   filterByAge(age: number) {
     return cy.get(this.ageFilter).type(age.toString());
+  }
+
+  /**
+   * Causes the page to do what it needs to do to filter by selecting `name` in the
+   * element that has the [data-test=userNameFilter] attribute (in this case, by typing).
+   *
+   * @returns the result of cy.get the element with [data-test=userNameFilter] attribute
+   */
+  filterByName(name: string) {
+    return cy.get(this.nameFilter).type(name);
   }
 
   /**

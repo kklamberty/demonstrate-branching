@@ -41,6 +41,24 @@ describe('User List', () => {
     expect(userList.serverFilteredUsers().length).toBe(3);
   });
 
+  it("contains a user named 'Chris'", () => {
+    expect(
+      userList.serverFilteredUsers().some((user: User) => user.name === 'Chris')
+    ).toBe(true);
+  });
+
+  it("contain a user named 'Jamie'", () => {
+    expect(
+      userList.serverFilteredUsers().some((user: User) => user.name === 'Jamie')
+    ).toBe(true);
+  });
+
+  it("doesn't contain a user named 'Santa'", () => {
+    expect(
+      userList.serverFilteredUsers().some((user: User) => user.name === 'Santa')
+    ).toBe(false);
+  });
+
   it('has two users that are 37 years old', () => {
     expect(
       userList.serverFilteredUsers().filter((user: User) => user.age === 37)
