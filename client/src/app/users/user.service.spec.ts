@@ -154,6 +154,18 @@ describe('UserService', () => {
      * though, we don't have to use the mock HttpClient and
      * all those complications.
      */
+    it('filters by name', () => {
+      const userName = 'i';
+      const filteredUsers = userService.filterUsers(testUsers, { name: userName });
+      // There should be two users with an 'i' in their
+      // name: Chris and Jamie.
+      expect(filteredUsers.length).toBe(2);
+      // Every returned user's name should contain an 'i'.
+      filteredUsers.forEach(user => {
+        expect(user.name.indexOf(userName)).toBeGreaterThanOrEqual(0);
+      });
+    });
+
     it('filters by company', () => {
       const userCompany = 'UMM';
       const filteredUsers = userService.filterUsers(testUsers, { company: userCompany });
@@ -161,6 +173,25 @@ describe('UserService', () => {
       expect(filteredUsers.length).toBe(1);
       // Every returned user's company should contain 'UMM'.
       filteredUsers.forEach(user => {
+        expect(user.company.indexOf(userCompany)).toBeGreaterThanOrEqual(0);
+      });
+    });
+
+    it('filters by name and company', () => {
+      // There's only one user (Chris) whose name
+      // contains an 'i' and whose company contains
+      // an 'M'. There are two whose name contains
+      // an 'i' and two whose company contains an
+      // an 'M', so this should test combined filtering.
+      const userName = 'i';
+      const userCompany = 'M';
+      const filters = { name: userName, company: userCompany };
+      const filteredUsers = userService.filterUsers(testUsers, filters);
+      // There should be just one user with these properties.
+      expect(filteredUsers.length).toBe(1);
+      // Every returned user should have _both_ these properties.
+      filteredUsers.forEach(user => {
+        expect(user.name.indexOf(userName)).toBeGreaterThanOrEqual(0);
         expect(user.company.indexOf(userCompany)).toBeGreaterThanOrEqual(0);
       });
     });
