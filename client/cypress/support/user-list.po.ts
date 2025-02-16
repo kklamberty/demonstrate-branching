@@ -2,8 +2,10 @@ import { UserRole } from 'src/app/users/user';
 
 export class UserListPage {
   private readonly baseUrl = '/users';
-  private readonly pageTitle = '[data-test=user-list-title]';
+  private readonly pageTitle = '[data-test=userListTitle]';
   private readonly user = '[data-test=user]';
+  private readonly username = '[data-test=userName]';
+  private readonly ageFilter = '[data-test=userAgeFilter]';
   private readonly userCardSelector = '.user-cards-container app-user-card';
   private readonly userListItemsSelector = '.user-nav-list .user-list-item';
   private readonly profileButtonSelector = '[data-test=viewProfileButton]';
@@ -27,6 +29,14 @@ export class UserListPage {
 
   getVisibleUsers() {
     return cy.get(this.user);
+  }
+
+  getUserNames() {
+    return cy.get(this.username);
+  }
+
+  filterByAge(age: number) {
+    return cy.get(this.ageFilter).type(age.toString());
   }
 
   /**

@@ -1,6 +1,7 @@
 package umm3601.user;
 
 import static com.mongodb.client.model.Filters.and;
+import static com.mongodb.client.model.Filters.eq;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -28,6 +29,9 @@ import umm3601.Controller;
 public class UserController implements Controller {
 
   private static final String API_USERS = "/api/users";
+  static final String AGE_KEY = "age";
+
+  private static final int REASONABLE_AGE_LIMIT = 150;
 
   private final JacksonMongoCollection<User> userCollection;
 
@@ -86,6 +90,14 @@ public class UserController implements Controller {
   private Bson constructFilter(Context ctx) {
     List<Bson> filters = new ArrayList<>(); // start with an empty list of filters
 
+    if (ctx.queryParamMap().containsKey(AGE_KEY)) {
+      int targetAge = ctx.queryParamAsClass(AGE_KEY, Integer.class)
+        .check(it -> it > 0, "User's age must be greater than zero; you provided " + ctx.queryParam(AGE_KEY))
+        .check(it -> it < REASONABLE_AGE_LIMIT,
+          "User's age must be less than " + REASONABLE_AGE_LIMIT + "; you provided " + ctx.queryParam(AGE_KEY))
+        .get();
+      filters.add(eq(AGE_KEY, targetAge));
+    }
     // Combine the list of filters into a single filtering document.
     Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);
 
