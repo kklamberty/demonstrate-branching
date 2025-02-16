@@ -20,6 +20,21 @@ describe('User list', () => {
     page.getVisibleUsers().should('have.length', 10);
   });
 
+  it('Should type something in the name filter and check that it returned correct elements', () => {
+    // Filter for user 'Lynn Ferguson'
+    page.filterByName('Lynn Ferguson');
+
+    // All of the user cards should have the name we are filtering by
+    page.getUserNames().each(userName => {
+      cy.wrap(userName).should('have.text', 'Lynn Ferguson');
+    });
+
+    // (We check this two ways to show multiple ways to check this)
+    page.getUserNames().each(userName =>
+      expect(userName.text()).to.equal('Lynn Ferguson')
+    );
+  });
+
   it('Should be able to filter by age 27 and check that it returned correct elements', () => {
     // Filter for users of age '27'
     page.filterByAge(27);

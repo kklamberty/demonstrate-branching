@@ -74,6 +74,12 @@ export class UserService {
   filterUsers(users: User[], filters: { name?: string; company?: string }): User[] { // skipcq: JS-0105
     let filteredUsers = users;
 
+    // Filter by name
+    if (filters.name) {
+      filters.name = filters.name.toLowerCase();
+      filteredUsers = filteredUsers.filter(user => user.name.toLowerCase().indexOf(filters.name) !== -1);
+    }
+
     // Filter by company
     if (filters.company) {
       filters.company = filters.company.toLowerCase();

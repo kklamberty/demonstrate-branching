@@ -6,13 +6,25 @@
     min="0" max="200" [(ngModel)]="userAge" >
   <mat-hint>Filtered on server</mat-hint>
 </mat-form-field>
+
 <!-- Examples of filtering in Angular -->
+<mat-form-field class="input-field">
+  <mat-label>Name</mat-label>
+  <!-- As opposed to the RXJS version `[ngModel]="userName$ | async" (ngModelChange)="userName$.next($event)" -->
+  <!-- Signals are their own getter and setter if left uninvoked like that -->
+  <!-- The [()] syntax is saying 'Do both the getting and setting with the respective get/set of the signal' -->
+  <input matInput data-test="userNameFilter" placeholder="Filter by name"
+    [(ngModel)]="userName">
+  <mat-hint>Filtered on client</mat-hint>
+</mat-form-field>
+
 <mat-form-field class="input-field">
   <mat-label>Company</mat-label>
   <input matInput data-test="userCompanyFilter" placeholder="Filter by company"
    [(ngModel)]="userCompany">
   <mat-hint>Filtered on client</mat-hint>
 </mat-form-field>
+
 <div data-test="userListTitle">Users</div>
 <div class="flex-row">
   @if (serverFilteredUsers()) {
