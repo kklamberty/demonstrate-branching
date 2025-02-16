@@ -21,7 +21,7 @@
       @for (user of filteredUsers(); track user._id) {
         <li data-test="user"><div data-test="userName">{{ user.name }}</div>
           <ul>
-            <li>Works for:{{ user.company }} as a(n) {{ user.role }}</li>
+            <li>Works for:<div data-test="userCompany">{{ user.company }}</div> as a(n) {{ user.role }}</li>
             <li>Age:{{ user.age }}</li>
             <li>{{ user.email }}</li>
           </ul>

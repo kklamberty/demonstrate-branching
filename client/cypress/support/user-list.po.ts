@@ -1,11 +1,11 @@
 import { UserRole } from 'src/app/users/user';
 
 export class UserListPage {
-  private readonly baseUrl = '/users';
+  private readonly pageUrl = '/users';
   private readonly pageTitle = '[data-test=userListTitle]';
   private readonly user = '[data-test=user]';
   private readonly username = '[data-test=userName]';
-  private readonly companyName = '[data-test=companyName]';
+  private readonly companyName = '[data-test=userCompany]';
   private readonly ageFilter = '[data-test=userAgeFilter]';
   private readonly companyFilter = '[data-test=userCompanyFilter]';
   private readonly userCardSelector = '.user-cards-container app-user-card';
@@ -17,7 +17,7 @@ export class UserListPage {
   private readonly addUserButtonSelector = '[data-test=addUserButton]';
 
   navigateTo() {
-    return cy.visit(this.baseUrl);
+    return cy.visit(this.pageUrl);
   }
 
   /**
@@ -32,7 +32,7 @@ export class UserListPage {
   /**
    * Gets the collection of things that have the [data-test=user] attribute.
    *
-   * @returns the elements that have the [data-test=user] attribute
+   * @returns an iterable of the elements that have the [data-test=user] attribute
    */
   getVisibleUsers() {
     return cy.get(this.user);
@@ -41,16 +41,16 @@ export class UserListPage {
   /**
    * Gets the collection of things that have the [data-test=userName] attribute.
    *
-   * @returns the elements that have the [data-test=userName] attribute
+   * @returns an iterable of the elements that have the [data-test=userName] attribute
    */
   getUserNames() {
     return cy.get(this.username);
   }
 
   /**
-   * Gets the collection of things that have the [data-test=companyName] attribute.
+   * Gets the collection of things that have the [data-test=userCompany] attribute.
    *
-   * @returns the elements that have the [data-test=companyName] attribute
+   * @returns an iterable of the elements that have the [data-test=userCompany] attribute
    */
   getCompanyNames() {
     return cy.get(this.companyName);
@@ -68,7 +68,7 @@ export class UserListPage {
 
   /**
    * Causes the page to do what it needs to do to filter by selecting `company` in the
-   * element that has the [data-test=userAgeFilter] attribute (in this case, by typing).
+   * element that has the [data-test=userCompanyFilter] attribute (in this case, by typing).
    *
    * @returns the result of cy.get the element with [data-test=userCompanyFilter] attribute
    */

@@ -42,7 +42,7 @@ describe('User list', () => {
     // Filter for company 'OHMNET'
     page.filterByCompany('OHMNET');
 
-    page.getVisibleUsers().should('have.lengthOf.above', 0);
+    page.getVisibleUsers().should('have.lengthOf', 2);
 
     // All of the visible users should have the company we are filtering by
     page.getCompanyNames().each(companyName => {
