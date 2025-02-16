@@ -1,11 +1,13 @@
 import { UserRole } from 'src/app/users/user';
 
 export class UserListPage {
-  private readonly baseUrl = '/users';
+  private readonly pageUrl = '/users';
   private readonly pageTitle = '[data-test=userListTitle]';
   private readonly user = '[data-test=user]';
   private readonly username = '[data-test=userName]';
+  private readonly companyName = '[data-test=userCompany]';
   private readonly ageFilter = '[data-test=userAgeFilter]';
+  private readonly companyFilter = '[data-test=userCompanyFilter]';
   private readonly userCardSelector = '.user-cards-container app-user-card';
   private readonly userListItemsSelector = '.user-nav-list .user-list-item';
   private readonly profileButtonSelector = '[data-test=viewProfileButton]';
@@ -15,28 +17,63 @@ export class UserListPage {
   private readonly addUserButtonSelector = '[data-test=addUserButton]';
 
   navigateTo() {
-    return cy.visit(this.baseUrl);
+    return cy.visit(this.pageUrl);
   }
 
   /**
    * Gets the title of the app when visiting the `/users` page.
    *
-   * @returns the value of the element with the ID `.user-list-title`
+   * @returns the value of the element with the [data-test=userListTitle]
    */
   getUserTitle() {
     return cy.get(this.pageTitle);
   }
 
+  /**
+   * Gets the collection of things that have the [data-test=user] attribute.
+   *
+   * @returns an iterable of the elements that have the [data-test=user] attribute
+   */
   getVisibleUsers() {
     return cy.get(this.user);
   }
 
+  /**
+   * Gets the collection of things that have the [data-test=userName] attribute.
+   *
+   * @returns an iterable of the elements that have the [data-test=userName] attribute
+   */
   getUserNames() {
     return cy.get(this.username);
   }
 
+  /**
+   * Gets the collection of things that have the [data-test=userCompany] attribute.
+   *
+   * @returns an iterable of the elements that have the [data-test=userCompany] attribute
+   */
+  getCompanyNames() {
+    return cy.get(this.companyName);
+  }
+
+  /**
+   * Causes the page to do what it needs to do to filter by selecting `number` in the
+   * element that has the [data-test=userAgeFilter] attribute (in this case, by typing).
+   *
+   * @returns the result of cy.get the element with [data-test=userAgeFilter] attribute
+   */
   filterByAge(age: number) {
     return cy.get(this.ageFilter).type(age.toString());
+  }
+
+  /**
+   * Causes the page to do what it needs to do to filter by selecting `company` in the
+   * element that has the [data-test=userCompanyFilter] attribute (in this case, by typing).
+   *
+   * @returns the result of cy.get the element with [data-test=userCompanyFilter] attribute
+   */
+  filterByCompany(company: string) {
+    return cy.get(this.companyFilter).type(company);
   }
 
   /**

@@ -72,7 +72,14 @@ export class UserService {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   filterUsers(users: User[], filters: { name?: string; company?: string }): User[] { // skipcq: JS-0105
-    const filteredUsers = users;
+    let filteredUsers = users;
+
+    // Filter by company
+    if (filters.company) {
+      filters.company = filters.company.toLowerCase();
+      filteredUsers = filteredUsers.filter(user => user.company.toLowerCase().indexOf(filters.company) !== -1);
+    }
+
     return filteredUsers;
   }
 }

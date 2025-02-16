@@ -2,12 +2,14 @@ package umm3601.user;
 
 import static com.mongodb.client.model.Filters.and;
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Filters.regex;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.bson.Document;
 import org.bson.UuidRepresentation;
@@ -30,6 +32,7 @@ public class UserController implements Controller {
 
   private static final String API_USERS = "/api/users";
   static final String AGE_KEY = "age";
+  static final String COMPANY_KEY = "company";
 
   private static final int REASONABLE_AGE_LIMIT = 150;
 
@@ -97,6 +100,10 @@ public class UserController implements Controller {
           "User's age must be less than " + REASONABLE_AGE_LIMIT + "; you provided " + ctx.queryParam(AGE_KEY))
         .get();
       filters.add(eq(AGE_KEY, targetAge));
+    }
+    if (ctx.queryParamMap().containsKey(COMPANY_KEY)) {
+      Pattern pattern = Pattern.compile(Pattern.quote(ctx.queryParam(COMPANY_KEY)), Pattern.CASE_INSENSITIVE);
+      filters.add(regex(COMPANY_KEY, pattern));
     }
     // Combine the list of filters into a single filtering document.
     Bson combinedFilter = filters.isEmpty() ? new Document() : and(filters);

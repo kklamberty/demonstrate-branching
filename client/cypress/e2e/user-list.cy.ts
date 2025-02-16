@@ -27,6 +27,7 @@ describe('User list', () => {
     page.getVisibleUsers().should('have.lengthOf', 3);
 
     // Go through each of the visible users that are being shown and get the names
+    console.log(page.getUserNames());
     page.getUserNames()
       // We should see these users whose age is 27
       .should('contain.text', 'Stokes Clayton')
@@ -35,5 +36,29 @@ describe('User list', () => {
       // We shouldn't see these users
       .should('not.contain.text', 'Connie Stewart')
       .should('not.contain.text', 'Lynn Ferguson');
+  });
+
+  it('Should type something in the company filter and check that it returned correct elements', () => {
+    // Filter for company 'OHMNET'
+    page.filterByCompany('OHMNET');
+
+    page.getVisibleUsers().should('have.lengthOf', 2);
+
+    // All of the visible users should have the company we are filtering by
+    page.getCompanyNames().each(companyName => {
+      cy.wrap(companyName).should('have.text', 'OHMNET');
+    });
+  });
+
+  it('Should type something partial in the company filter and check that it returned correct elements', () => {
+    // Filter for companies that contain 'ti'
+    page.filterByCompany('ti');
+
+    page.getVisibleUsers().should('have.lengthOf', 2);
+
+    // Each user card's company name should include the text we are filtering by
+    page.getCompanyNames().each(companyName => {
+      cy.wrap(companyName).should('include.text', 'TI');
+    });
   });
 });
